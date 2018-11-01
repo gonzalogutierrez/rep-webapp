@@ -1,0 +1,63 @@
+<div class="offer-summary-dialog-container">
+  <button class="close-button-container" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h2 mat-dialog-title>Resumen cotización</h2>
+  <mat-dialog-content fxLayout="column">
+    <div fxLayout="row">
+      <div fxFlex="48" >
+        <span class="title">Precio</span>
+        <span class="value">$&nbsp;{{ offer.price }} IVA inc.</span>
+      </div>
+      <div fxFlex="4"></div>
+      <div fxFlex="48">
+        <span class="title">Marca</span>
+        <span class="value">{{ offer.brand }}</span>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="48" class="field-container">
+        <span class="title">País de origen</span>
+        <span class="value">{{ offer.coo }}</span>
+      </div>
+      <div fxFlex="4"></div>
+      <div fxFlex="48" class="field-container">
+        <span class="title">Estado</span>
+        <span class="value">{{ getOfferConditionString(offer.condition) }}</span>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="48" class="field-container">
+        <span class="title">Tipo</span>
+        <span class="value">{{ getOfferTypeString(offer.type) }}</span>
+      </div>
+      <div fxFlex="4"></div>
+      <div fxFlex="48" class="field-container">
+        <span class="title">Tiene cambio</span>
+        <span class="value">{{ offer.devolution === "true" ? 'Sí' : 'No' }}</span>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="48" class="field-container">
+        <span class="title">Disponibilidad</span>
+        <span class="value">{{ getOfferAvailableString(offer.availableNow) }}</span>
+      </div>
+      <div fxFlex="4"></div>
+      <div fxFlex="48" class="field-container">
+        <span class="title">Ofrece envío a coordinar</span>
+        <span class="value">{{ offer.delivery === "true" ? 'Sí' : 'No' }}</span>
+      </div>
+    </div>
+    <div fxFlex="48" class="field-container">
+      <span class="title">Métodos de pago</span>
+      <div fxLayout="row wrap">
+        <span fxFlex="50" *ngFor="let key of offer.paymentMethods" class="value">{{ key }}</span>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button class="send-button" (click)="addOffer()">ENVIAR</button>
+  </mat-dialog-actions>
+</div>

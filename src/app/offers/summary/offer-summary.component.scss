@@ -1,0 +1,30 @@
+.offer-summary-dialog-container {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    position: relative;
+  }
+
+  .title {
+    width: 100%;
+    display: block;
+    font-size: 12px;
+  }
+
+  .value {
+    margin-top: 5px;
+    display: block;
+  }
+
+  .field-container {
+    margin-top: 20px;
+  }
+
+  .send-button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    background: #43CC81;
+    color: #ffffff;
+    width: 100%;
+  }

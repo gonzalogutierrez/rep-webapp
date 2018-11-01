@@ -1,0 +1,36 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav style="padding-top: 100px; padding-left: 25px;
+  padding-right: 25px; background: #E53935;" #sidenav mode="side">
+    <button [routerLinkActive]="['active']" (click)="changeSelected(0)" class="sidenav-content-buttons" mat-button routerLink="requests">SOLICITUDES</button>
+    <button [routerLinkActive]="['active']" (click)="changeSelected(1)" class="sidenav-content-buttons" mat-button routerLink="sales">VENTAS</button>
+    <button [routerLinkActive]="['active']" (click)="changeSelected(2)" class="sidenav-content-buttons" mat-button routerLink="account">MI CUENTA</button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar fxLayout="row" *ngIf="authService.isAuthenticated()">
+  <div fxFlex="40">
+    <button fxShow fxHide.gt-sm mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="requests">
+      <img style="width: 50px;" src="assets/img/logotipo.png" />
+    </a>
+  </div>
+  <nav fxHide fxShow.gt-sm fxFlex="60" style="text-align: right;">
+    <button [routerLinkActive]="['active']" mat-button routerLink="requests" (click)="changeSelected(0)">SOLICITUDES</button>
+    <button [routerLinkActive]="['active']" mat-button routerLink="sales" (click)="changeSelected(1)">VENTAS</button>
+    <button [routerLinkActive]="['active']" mat-button routerLink="account" (click)="changeSelected(2)">MI CUENTA</button>
+    <button [routerLinkActive]="['active']" mat-button routerLink="faq" (click)="changeSelected(3)">PREGUNTAS FRECUENTES</button>
+    <button [routerLinkActive]="['active']" mat-button routerLink="contact" (click)="changeSelected(4)">CONTACTO</button>
+  </nav>
+</mat-toolbar>
+
+<!--<mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item routerLink="requests">SOLICITUDES</button>
+    <button mat-menu-item routerLink="sales">VENTAS</button>
+    <button mat-menu-item routerLink="account">MI CUENTA</button>
+</mat-menu>-->

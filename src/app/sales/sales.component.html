@@ -1,0 +1,105 @@
+<div class="sales-container" *tdLoading="'loadingSales'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+  <div class="sales-filters-container" fxLayout.gt-sm="row" fxLayout.xs="column" fxLayoutAlign.gt-sm="center start" fxLayoutAlign.xs="center start">
+    <div fxFlex="20" class="filters-container" fxLayout="column">
+      <mat-chip-list class="filter-chips">
+        <mat-chip class="chip" *ngIf="selectedSaleType">
+          <span>{{getSaleTypeString(selectedSaleType)}}</span>
+        </mat-chip>
+      </mat-chip-list>
+
+      <!-- for small screens -->
+      <div fxFlex="20" fxHide.gt-sm="true" [fxHide]="showFilters" class="xs-sm-filters-closed">
+        <button class="filter-button" (click)="toggleShowFilters()">Filtrar
+          <mat-icon class="filter-icon">filter_list</mat-icon>
+        </button>
+      </div>
+
+      <div [fxHide]="!showFilters" fxHide.gt-sm="true" class="xs-sm-filters-opened">
+        <span class="filter-by-text">Filtrar por</span>
+        <button class="hide-filters-button" (click)="toggleShowFilters()">Ocultar
+          <mat-icon class="hide-filters-icon">close</mat-icon>
+        </button>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Tipo de venta</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onSaleTypeSelected(1)">Cotizadas</button>
+            <button class="filter" (click)="onSaleTypeSelected(2)">Aceptadas para retirar</button>
+            <button class="filter" (click)="onSaleTypeSelected(3)">Vendidas</button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+      <!-- only for big screens -->
+      <div style="margin-top: 20px;" fxHide.xs="true">
+        <span style="font-weight: 700; margin-left: 5px; margin-bottom: 8px; display: block;">Tipo de venta</span>
+        <button class="filter" (click)="onSaleTypeSelected(1)">Cotizadas</button>
+        <button class="filter" (click)="onSaleTypeSelected(2)">Aceptadas para retirar</button>
+        <button class="filter" (click)="onSaleTypeSelected(3)">Vendidas</button>
+      </div>
+    </div>
+
+    <div fxFlex="80" *ngIf="total > 0" style="margin-bottom: 50px;" class="sales-list-wrapper">
+      <p class="header">{{ getSaleTypeString(selectedSaleType) }}</p>
+      <div *ngIf="selectedSaleType != offerSaleType">
+        <div class="sale-card-wrapper" *ngFor="let sale of sales">
+          <mat-card class="sale-background-card" (click)="showSaleDetail(sale._id)" style="margin-top: 14px;">
+            <div style="float: right;">
+              <p fxLayoutAlign="end end" style="font-size: 12px; text-align: right; margin-bottom: 0px; color: #999;">{{ parseDate(sale.createdAt) }}</p>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center" style="width: 100%; margin-top: 25px;">
+              <div fxFlex="30" class="card-info-wrapper">
+                <p class="card-title">{{ sale.request.name }}</p>
+                <p class="card-subtitle">{{ sale.request.descr }}</p>
+              </div>
+              <div fxFlex="25">
+                <p class="card-subtitle">{{ sale.request.submodel.mmodel.brand.name != "Otro" ? sale.request.submodel.mmodel.brand.name : sale.request.customBrand
+                  }} {{ sale.request.submodel.mmodel.name != "Otro" ? sale.request.submodel.mmodel.name : sale.request.customModel
+                  }}</p>
+                <p class="card-subtitle bottom">{{ sale.request.submodel.name != "Otro" ? sale.request.submodel.name : sale.request.customSubmodel}} {{
+                    sale.request.year }}</p>
+              </div>
+              <p fxFlex="20" class="price" style="text-align: center;">$ {{ sale.offer.price }}</p>
+              <div fxFlex="25">
+                <p class="id-title" style="text-align: center;">ID: {{ sale.code }}</p>
+                <div *ngIf="sale && sale.status == SaleStatus.pending" class="finish-button-wrapper">
+                  <a mat-raised-button class="finish-button" fxFlex="75" (click)="showRateConsumer(sale._id); $event.stopPropagation()">ENTREGADO</a>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+      <div *ngIf="selectedSaleType == offerSaleType">
+        <div class="sale-card-wrapper" *ngFor="let offer of offers">
+          <mat-card class="sale-background-card" (click)="showOfferDetail(offer._id)">
+            <div style="float: right;">
+              <p fxLayoutAlign="end end" style="font-size: 12px; text-align: right; margin-bottom: 0px; color: #999;">{{ parseDate(offer.createdAt) }}</p>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center center" style="width: 100%; margin-top: 25px;">
+              <div fxFlex="33" class="card-info-wrapper">
+                <p class="card-title">{{ offer.request.name }}</p>
+                <p class="card-subtitle">{{ offer.request.descr }}</p>
+              </div>
+              <div fxFlex="33">
+                <p class="card-subtitle">{{ offer.request.submodel.mmodel.brand.name != "Otro" ? offer.request.submodel.mmodel.brand.name : offer.request.customBrand
+                  }} {{ offer.request.submodel.mmodel.name != "Otro" ? offer.request.submodel.mmodel.name : offer.request.customModel
+                  }}</p>
+                <p class="card-subtitle bottom">{{ offer.request.submodel.name != "Otro" ? offer.request.submodel.name : offer.request.customSubmodel}} {{
+                  offer.request.year }}</p>
+              </div>
+              <p fxFlex="33" class="price" style="text-align: center;">$ {{ offer.price }}</p>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="80" *ngIf="total == 0" class="sales-empty-state">
+      <p>No hay resultados</p>
+    </div>
+  </div>
+  <td-paging-bar #pagingBarOffers *ngIf="total > pageSize" fxLayout="row" fxLayoutAlign="center center" pageLinkCount="5" [pageSize]="pageSize"
+    [total]="total" (change)="page($event)" color="white" class="pagination">
+  </td-paging-bar>
+</div>

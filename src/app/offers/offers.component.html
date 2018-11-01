@@ -1,0 +1,21 @@
+<p class="header">
+  Ventas aún no concretadas
+</p>
+
+<!-- <mat-spinner class="loading-spinner" [color]="warn"></mat-spinner> -->
+<div *tdLoading="'loadingOffers'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+  <div class="request-card-wrapper" *ngFor="let offer of offers">
+      <mat-card style="background: white; color: black;  cursor: pointer;" (click)="showOfferDetail(offer._id)">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="start center">
+          <div fxFlex="33" class="center-content">
+            <img class="width-50" src="{{ offer.pictureURLList[0] }}" />
+          </div>
+          <div fxFlex="33" style="margin-left: 30px;">
+            <p class="card-title">{{ offer.request.descr }}</p>
+            <p class="card-subtitle">{{ offer.request.name }}</p>
+          </div>
+          <p fxFlex="33" class="category-title" style="text-align: center;">ID: {{ offer._id }}</p>
+        </div>
+      </mat-card>
+  </div>
+</div>

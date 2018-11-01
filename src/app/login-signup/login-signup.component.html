@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="login-signup-container">
+    <mat-card fxFlex="70" fxFlex.lt-md="90" fxLayout.lt-md="column" >
+
+        <div class="brand-div" fxFlex="45" fxFlex.lt-md="20" fxLayoutAlign="center center">
+            <img style="max-width: 180px;" src="assets/img/logotipo.png"/>
+        </div>
+        <div fxFlex="55" fxFlex.lt-md="80" style="    max-height: 100%;
+        overflow: scroll;">
+            <mat-tab-group [(selectedIndex)]="selectedTabIndex" color="accent">
+                <mat-tab label="INICIAR SESIÓN">
+                    <app-login></app-login>
+                </mat-tab>
+                <mat-tab label="REGISTRO">
+                    <app-signup></app-signup>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </mat-card>
+</div>

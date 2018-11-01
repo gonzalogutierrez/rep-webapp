@@ -1,0 +1,40 @@
+.example-container {
+  width: 400px;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #555;
+}
+
+mat-toolbar {
+  background: #E53935;
+  color: #ffffff;
+  z-index: 10;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  position: fixed;
+  top: 0;
+}
+
+button, a {
+  outline: 0;
+}
+
+.active {
+  border: 1px solid;
+}
+
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.sidenav-content-buttons {
+  display: block; 
+  color: white;
+}

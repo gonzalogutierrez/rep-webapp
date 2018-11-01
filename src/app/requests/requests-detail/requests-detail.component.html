@@ -1,0 +1,41 @@
+<div class="request-detail-container">
+  <mat-card class="card" *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+    <div class="info-container" fxLayout.gt-sm="row" fxLayout.lt-md="column" *ngIf="request && request.submodel">
+      <div fxFlex="50" class="carousel-wrapper">
+        <ngb-carousel #myCarousel="ngbCarousel" class="carousel">
+          <ng-template ngbSlide *ngFor="let image of images; let i = index;" [id]="i">
+            <img class="carousel-img" [src]="image">
+          </ng-template>
+        </ngb-carousel>
+        <div fxLayout="row" fxLayoutAlign="center center" >
+          <a class="grid-item" (click)="showZoomedImage(i)" fxFlex="20" fxLayout="row" *ngFor="let image of images; let i = index;"
+            fxLayoutAlign="center center">
+            <img class="grid-img" [src]="image" />
+          </a>
+        </div>
+      </div>
+
+      <div fxFlex="50">
+        <p class="date">{{ parseDate(request.createdAt) }}</p>
+        <p class="header">
+          {{ request.submodel.mmodel.brand.name != "Otro" ? request.submodel.mmodel.brand.name : request.customBrand }} {{ request.submodel.mmodel.name != "Otro" ? request.submodel.mmodel.name : request.customModel }} {{ request.submodel.name != "Otro" ? request.submodel.name : request.customSubmodel}}
+          {{ request.year }}
+        </p>
+        <p class="category-title">
+          {{ request.category.name }}
+        </p>
+        <p>{{ request.descr }}</p>
+        <p *ngIf="request.OEM"><b>OEM: </b>{{ request.OEM }}</p>
+        <p *ngIf="request.VIN"><b>VIN: </b>{{ request.VIN }}</p>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <a mat-raised-button class="make-offer-button" (click)="openQuestionDialog()">PREGUNTAR</a>
+          <a mat-raised-button class="make-offer-button" (click)="openOfferDialog()">COTIZAR</a>
+        </div>
+      </div>
+    </div>
+    <p class="offers" *ngIf="offerIds && offerIds.length > 0">Recuerda que ya has realizado {{ offerIds.length }} oferta(s) para esta solicitud! Puedes verla(s) aquí:
+      <a class="offer-link" *ngFor="let id of offerIds; let i = index;" routerLink="/offers/{{id}}">{{ i + 1 }}</a>
+    </p>
+  </mat-card>
+</div>

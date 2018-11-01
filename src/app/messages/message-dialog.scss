@@ -1,0 +1,18 @@
+
+.ok-button {
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    display: block; 
+    color: #ffffff; 
+    width: 100%;
+
+    &.error {
+        background: #e53935; 
+    }
+    &.warning {
+        background: #FFA330; 
+    }
+    &.success {
+        background: #43CC81; 
+    }
+}

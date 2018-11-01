@@ -1,0 +1,142 @@
+<div>
+  <div class="sale-detail-container">
+    <mat-card class="card" *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+      <div class="info-container" fxLayout.gt-sm="row" fxLayout.lt-md="column" *ngIf="sale && sale.offer && sale.request">
+        <div fxFlex="45" class="carousel-wrapper">
+          <ngb-carousel #myCarousel="ngbCarousel" class="carousel">
+            <ng-template ngbSlide *ngFor="let image of images; let i = index;" [id]="i">
+              <img class="carousel-img" [src]="image">
+            </ng-template>
+          </ngb-carousel>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <a class="grid-item" (click)="showZoomedImage(i)" fxFlex="20" fxLayout="row" *ngFor="let image of images; let i = index;"
+              fxLayoutAlign="center center">
+              <img class="grid-img" [src]="image" />
+            </a>
+          </div>
+          <div class="request-info-container">
+            <p class="header">
+              {{ sale.request.submodel.mmodel.brand.name != "Otro" ? sale.request.submodel.mmodel.brand.name : sale.request.customBrand }}
+              {{ sale.request.submodel.mmodel.name != "Otro" ? sale.request.submodel.mmodel.name : sale.request.customModel }}
+              {{ sale.request.submodel.name != "Otro" ? sale.request.submodel.name : sale.request.customSubmodel}} {{ sale.request.year }}
+            </p>
+            <p class="category-title">
+              {{ sale.request.category.name }}
+            </p>
+            <p>{{ sale.request.descr }}</p>
+            <p *ngIf="sale.request.OEM">
+              <b>OEM: </b>{{ sale.request.OEM }}</p>
+            <p *ngIf="sale.request.VIN">
+              <b>VIN: </b>{{ sale.request.VIN }}</p>
+          </div>
+        </div>
+
+        <div fxFlex="2" fxLayoutAlign="center center">
+          <div class="vl">
+          </div>
+        </div>
+
+        <div fxFlex="27" fxLayout="column" fxLayoutAlign="center start" class="offer-info-container">
+          <p class="header offer-header">
+            Tu cotización:
+          </p>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Marca</b>
+            </span>
+            <span fxFlex="50">{{sale.offer.brand}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>País de origen</b>
+            </span>
+            <span fxFlex="50">{{sale.offer.coo}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Disponible</b>
+            </span>
+            <span fxFlex="50">{{getOfferAvailableString(sale.offer.availableNow)}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Tiene devolución</b>
+            </span>
+            <span fxFlex="50">{{sale.offer.devolution ? 'Si' : 'No'}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Precio</b>
+            </span>
+            <span fxFlex="50">$ {{sale.offer.price}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Condición</b>
+            </span>
+            <span fxFlex="50">{{getOfferConditionString(sale.offer.status)}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Tipo</b>
+            </span>
+            <span fxFlex="50">{{getOfferTypeString(sale.offer.type)}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Método de pago</b>
+            </span>
+            <div fxLayout="row wrap">
+              <span fxFlex="50" *ngFor="let key of sale.offer.paymentMethods" class="value">{{ key }}</span>
+            </div>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Ofrece envío a coordinar</b>
+            </span>
+            <span fxFlex="50">{{sale.offer.delivery ? 'Sí': 'No'}}</span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" class="sale-status-container">
+            <mat-chip-list>
+              <mat-chip [ngClass]="{ 'red': sale.offer.status == OfferStatus.rejected, 'yellow': sale.status == SaleStatus.pending, 'green': (sale.status == SaleStatus.finished || sale.status == SaleStatus.billed) }" class="chip">
+                <span class="sale-status-text">{{ getSaleStatusString(sale.status) }}</span>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+
+        <div fxFlex="2" fxLayoutAlign="center center">
+          <div class="vl">
+          </div>
+        </div>
+
+        <div fxFlex="24" fxLayout="column" fxLayoutAlign="center start" class="offer-info-container">
+          <p class="header offer-header">
+            Cliente:
+          </p>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Nombre</b>
+            </span>
+            <span fxFlex="50">{{sale.consumer.firstname}}</span>
+          </div>
+          <div fxLayout="row" class="offer-title">
+            <span fxFlex="50">
+              <b>Apellido</b>
+            </span>
+            <span fxFlex="50">{{sale.consumer.lastname}}</span>
+          </div>
+
+          <div class="pic-container">
+            <img [src]="consumerImage" />
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="sale && sale.status == SaleStatus.pending" fxLayout="row" fxLayoutAlign="center center" class="finish-button-wrapper">
+        <a mat-raised-button class="finish-button" fxFlex.gt-sm="30" fxFlex="100" (click)="showRateConsumer()">ENTREGADO</a>
+      </div>
+    </mat-card>
+
+  </div>
+</div>

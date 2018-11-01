@@ -1,0 +1,27 @@
+@import '../offers/offers-detail/offers-detail.component';
+
+
+.restore-pwd-container {
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.detail-card {
+    height: initial;
+}
+
+.submit-button {
+    background: #e53935;
+    color: #ffffff;
+}
+
+.icon-container {
+  text-align: center;
+
+  mat-icon {
+    color: #43CC81;
+    font-size: 220px;
+    width: 220px;
+  }
+
+}

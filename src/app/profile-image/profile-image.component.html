@@ -1,0 +1,21 @@
+<div class="make-offer-dialog-container">
+  <button class="close-button-container" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h2 mat-dialog-title>Seleccionar imagen de perfil</h2>
+
+  <mat-dialog-content>
+    <div *tdLoading="'changeProfileImageLoading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+      <input type="file" (change)="fileChangeEvent($event)" />
+
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1" [resizeToWidth]="300"
+        format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()">
+      </image-cropper>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button style="margin-top: 20px; margin-bottom: 20px; display: block; background: #43CC81; color: #ffffff; width: 100%;"
+      (click)="changeProfileImage()" [disabled]="!croppedImage">CAMBIAR IMAGEN</button>
+  </mat-dialog-actions>
+</div>

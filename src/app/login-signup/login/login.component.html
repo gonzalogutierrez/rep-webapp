@@ -1,0 +1,32 @@
+<div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+      <form [formGroup]="loginForm" name="loginForm" fxFlex="100" style="margin-top: 60px;">
+
+        <p style="text-align: center; margin-left: 0px; font-size: 25px;">
+          Iniciar sesión
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="70">
+            <input type="email" matInput placeholder="Email" [formControl]="loginForm.controls.email">
+          <!-- <mat-error *ngIf="loginForm.controls.email.invalid">{{ getErrorMessage() }}</mat-error>-->
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" style="margin-top:10px;">
+          <mat-form-field fxFlex="70">
+            <input matInput placeholder="Contraseña" [formControl]="loginForm.controls.password" [type]="hidePwd ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{ hidePwd ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="70" class="forgot-pwd">
+            <a routerLink="/forgot_pwd">¿Te olvidaste de la contraseña?</a>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 50px;"
+            *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'replace'; color:'accent'">
+          <a mat-raised-button class="login-button" fxFlex="70" (click)="login()">ENTRAR</a>
+        </div>
+      </form>
+  </div>
+</div>

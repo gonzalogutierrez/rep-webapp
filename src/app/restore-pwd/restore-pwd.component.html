@@ -1,0 +1,38 @@
+<div style="margin-top: 10%;">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="100">
+
+      <div *ngIf="!done" style="margin-top: 60px;">
+        <p style="text-align: center; margin-left: 0px; font-size: 25px;">
+          Actualizar contraseña
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="30">
+            <input [(ngModel)]="pwd1" type="password" matInput placeholder="Nueva contraseña">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" style="margin-top:10px;">
+          <mat-form-field fxFlex="30">
+            <input [(ngModel)]="pwd2" [type]="hidePwd ? 'password' : 'text'" matInput placeholder="Repite la contraseña">
+            <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{ hidePwd ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 50px;">
+          <a mat-raised-button class="login-button" fxFlex="30" (click)="submit()">Cambiar contraseña</a>
+        </div>
+      </div>
+
+
+      <div *ngIf="done">
+        <div class="icon-container">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+
+        <p style="text-align: center; margin-left: 0px; font-size: 25px;">
+          Contraseña actualizada con éxito
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="center center" style="padding: 20px;">
+    <p style="text-align: center;">Para finalizar la venta por favor califica al cliente</p>
+    <ngb-rating [(rate)]="currentRate" max="5">
+      <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100">&#9733;</span>
+      </ng-template>
+    </ngb-rating>
+    <mat-form-field>
+      <input matInput placeholder="Comentario" [(ngModel)]="comment">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px;">
+    <a mat-raised-button class="finish-button" fxFlex="30" (click)="finishSale()">ENVIAR</a>
+  </div>
+</mat-dialog-content>

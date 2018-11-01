@@ -1,0 +1,24 @@
+.brand-div {
+    background: #e53935;
+    min-height: 200px;
+}
+
+.login-signup-container {
+    height: 100%;
+    margin-top: 30px;
+}
+
+
+
+mat-card {
+    padding: 0;
+    margin-bottom: 30px;
+    min-height: 75%;
+    max-height: 95%;
+    min-width: 70%;
+    max-width: 75% !important;
+
+    @media all and (max-width: 960px) {
+        height: 100%;
+    }
+}

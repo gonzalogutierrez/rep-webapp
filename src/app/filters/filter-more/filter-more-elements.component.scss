@@ -1,0 +1,27 @@
+.make-offer-dialog-container {
+  position: relative;
+}
+
+.chip {
+  background: #E53935;
+  color: white;
+  margin-top: 10px !important;
+  margin-left: 10px !important;
+}
+
+.filter {
+  display: inline-block;
+  font-size: 15px;
+  color: #646468;
+  background: transparent;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  font-weight: 500;
+  width: 33%;
+  text-align: start;
+}
+
+.filter:hover {
+  color: black;
+}

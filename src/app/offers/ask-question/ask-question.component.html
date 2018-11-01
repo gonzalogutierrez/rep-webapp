@@ -1,0 +1,19 @@
+<div class="offer-summary-dialog-container" style="position: relative">
+  <button class="close-button-container" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+  <h2 mat-dialog-title>Crear pregunta</h2>
+  <mat-dialog-content fxLayout="column">
+    <div fxLayout="row">
+      <mat-form-field fxFlex="95" [color]="formColor" class="form-field-container">
+        <mat-select [formControl]="askQuestionForm.controls.question" placeholder="Pregunta" required>
+          <mat-option *ngFor="let q of questions" [value]="q">{{q}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions *tdLoading="'loadingQuestions'; mode:'indeterminate'; type:'circle'; color:'accent'">
+    <button mat-raised-button class="send-button" (click)="askQuestion()" [disabled]="!askQuestionForm.controls.question.value">ENVIAR</button>
+  </mat-dialog-actions>
+</div>

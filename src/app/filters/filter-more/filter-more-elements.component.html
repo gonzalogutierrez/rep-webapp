@@ -1,0 +1,24 @@
+<div class="make-offer-dialog-container">
+  <button class="close-button-container" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h2 mat-dialog-title>{{title}}</h2>
+
+  <mat-dialog-content>
+    <!--<mat-chip-list class="filter-chips">
+          <mat-chip class="chip" *ngFor="let element of elements" (click)="filterSelected(element)">
+            <span>{{ element.name }}</span>
+          </mat-chip>
+        </mat-chip-list>-->
+
+    <button class="filter" (click)="filterSelected(element)" *ngFor="let element of elements">{{ element.name }}
+      <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+    </button>
+
+    <td-paging-bar fxLayout="row" fxLayoutAlign="center center" *ngIf="elementsTotal > pageSize" #pagingBar pageLinkCount="5" [pageSize]="pageSize" [total]="elementsTotal" (change)="page($event)" color="white"
+      class="pagination">
+    </td-paging-bar>
+
+  </mat-dialog-content>
+</div>

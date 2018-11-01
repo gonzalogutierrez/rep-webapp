@@ -1,0 +1,114 @@
+<p class="header">
+  Editar perfil
+</p>
+<div *tdLoading="'saveChangesLoading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+  <div fxLayout="row" fxLayoutAlign="center center" *ngIf="provider">
+    <div fxFlex="65">
+      <div class="section-header-container" fxLayout="row" fxLayoutAlign="start center">
+        <span class="section-header">Datos de la empresa</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Nombre fantasía" [(ngModel)]="provider.fantasyName" required>
+          <!--<mat-error *ngIf="signupForm.controls.fantasyName.invalid">{{ getErrorMessage() }}</mat-error>-->
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Razón social" [(ngModel)]="provider.businessName" required>
+          <!--<mat-error *ngIf="signupForm.controls.businessName.invalid">{{ getErrorMessage() }}</mat-error>-->
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="RUT" [(ngModel)]="provider.rut" required>
+          <!--<mat-error *ngIf="signupForm.controls.rut.invalid">{{ getErrorMessage() }}</mat-error>-->
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <mat-select [(ngModel)]="provider.corporationType" placeholder="Tipo de sociedad" required>
+            <mat-option value="S.A.">S.A.</mat-option>
+            <mat-option value="S.R.L.">S.R.L.</mat-option>
+            <mat-option value="Unipersonal">Unipersonal</mat-option>
+            <mat-option value="Otros">Otros</mat-option>
+          </mat-select>
+          <!--<mat-error *ngIf="signupForm.controls.corporationType.invalid">{{ getErrorMessage() }}</mat-error>-->
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Página web" [(ngModel)]="provider.webpage">
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Encargado o responsable" [(ngModel)]="provider.attendant" required>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Teléfono del encargado o responsable" [(ngModel)]="provider.attendantPhone" required>
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Email del encargado o responsable" [(ngModel)]="provider.attendantEmail" required>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" class="section-header-container">
+        <span class="section-header">Datos de facturación</span>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Domicilio" [(ngModel)]="provider.address" required>
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <mat-select [(ngModel)]="provider.department" placeholder="Departamento" required>
+            <mat-option value="Artigas">Artigas</mat-option>
+            <mat-option value="Canelones">Canelones</mat-option>
+            <mat-option value="Cerro Largo">Cerro Largo</mat-option>
+            <mat-option value="Colonia">Colonia</mat-option>
+            <mat-option value="Durazno">Durazno</mat-option>
+            <mat-option value="Flores">Flores</mat-option>
+            <mat-option value="Florida">Florida</mat-option>
+            <mat-option value="Lavalleja">Lavalleja</mat-option>
+            <mat-option value="Maldonado">Maldonado</mat-option>
+            <mat-option value="Montevideo">Montevideo</mat-option>
+            <mat-option value="Paysandú">Paysandú</mat-option>
+            <mat-option value="Río Negro">Río Negro</mat-option>
+            <mat-option value="Rivera">Rivera</mat-option>
+            <mat-option value="Rocha">Rocha</mat-option>
+            <mat-option value="Salto">Salto</mat-option>
+            <mat-option value="San José">San José</mat-option>
+            <mat-option value="Soriano">Soriano</mat-option>
+            <mat-option value="Tacuarembó">Tacuarembó</mat-option>
+            <mat-option value="Treinta y Tres">Treinta y Tres</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <mat-select [(ngModel)]="provider.locality" placeholder="Zona" required>
+            <mat-option *ngFor="let key of (zones[provider.department] ? zones[provider.department] : [])" [value]="key">{{ key }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Código Postal" [(ngModel)]="provider.postalCode" required>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field fxFlex="46">
+          <input matInput placeholder="Teléfono" [(ngModel)]="provider.phone" required>
+        </mat-form-field>
+        <div fxFlex="8"></div>
+        <mat-form-field fxFlex.gt-md="46">
+          <input matInput placeholder="Horarios" [formControl]="provider.schedules">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center center" class="signup-button-container">
+        <a mat-raised-button class="save-button" fxFlex="40" (click)="saveChanges()">GUARDAR CAMBIOS</a>
+      </div>
+    </div>
+  </div>
+</div>

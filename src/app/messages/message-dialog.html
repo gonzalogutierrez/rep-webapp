@@ -1,0 +1,15 @@
+<div style="padding-left: 40px; padding-right: 40px; padding-top: 15px;" >
+
+    <mat-dialog-content>
+      <p>{{ data.text }}</p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close 
+        class="ok-button"
+        [ngClass]="{ 'error': data.messageType == MessageType.error,
+          'warning': data.messageType == MessageType.warning,
+          'success': data.messageType == MessageType.success }">
+        OK</button>
+    </mat-dialog-actions>
+</div>

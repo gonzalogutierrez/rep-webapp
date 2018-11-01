@@ -1,0 +1,228 @@
+.requests-container {
+  margin-top: 150px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-card {
+  background: #909095;
+  color:black;
+}
+
+.center-content {
+  text-align: center;
+}
+
+.request-card-wrapper {
+  margin-top: 15px;
+  margin-left: 90px;
+  margin-right: 90px;
+}
+
+.card-info-wrapper {
+  margin-left: 30px;
+}
+
+.width-50 {
+  width: 50%;
+  max-width: 100px;
+}
+
+.card-title {
+  font-weight: 550;
+  font-size: 22px;
+}
+
+.card-subtitle {
+  font-size:18px;
+  font-weight: 400;
+  margin-top: -11px;
+}
+
+.card-subtitle-2 {
+  font-size:18px;
+  font-weight: 400;
+}
+
+.category-title {
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.filter {
+  display: block;
+  font-size: 14px;
+  color: #646468;
+  background: transparent;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filter:hover {
+  color: black;
+}
+
+.show-more-filters {
+  display:block;
+  font-size: 14px;
+  cursor: hover;
+  outline: 0;
+  color: #039be5;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.chip {
+  padding-right: 8px;
+  background: white;
+  margin-top: 2px !important;
+  margin-left: 2px !important;
+
+  span {
+    color: #646468;
+  }
+}
+
+.consumer-type-chip {
+  background: #e53935 !important;
+  color: white !important;
+  float: right;
+}
+
+.remove-filter-button {
+  font-size: 17px;
+  text-align: center;
+  height: 100%;
+  color: #b1b1b4;
+}
+
+.pagination {
+  margin: 30px auto;
+}
+
+.filters-container {
+  padding-left: 5%;
+  padding-top: 60px;
+}
+
+.requests-filters-container {
+  margin-bottom: 50px;
+}
+
+.md-lg-filter-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.md-lg-filter-title {
+  font-weight: 700;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.requests-empty-state {
+  text-align: center;
+  width: 100%;
+  margin-top: 80px;
+}
+
+.request-background-card {
+  background: white; color: black; cursor: pointer;
+}
+
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .request-card-wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .requests-list-wrapper {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .requests-container {
+    margin-top: 80px;
+  }
+
+  .card-info-wrapper {
+    margin-left: 0px;
+  }
+
+  .filters-container {
+    width: 100%;
+    padding-top: 0px;
+    padding-right: 5%;
+  }
+
+  .filter {
+    margin-top: 8px;
+  }
+
+  .xs-sm-filters-closed {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .xs-sm-filters-opened {
+    margin-top: 6px;
+  }
+
+  .filter-button {
+    outline: 0;
+    background: white;
+    border: none;
+    border-radius: 55px;
+    font-size: 20px;
+    padding: 3px 15px;
+    float: right;
+    cursor: pointer;
+    color: #1F63E9;
+  }
+
+  .filter-icon {
+    font-size: 22px;
+    vertical-align: middle;
+    color: #1F63E9;
+  }
+
+  .filter-by-text {
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  .hide-filters-button {
+    float: right;
+    font-size: 13px;
+  }
+
+  .hide-filters-icon {
+    font-size: 24px;
+    vertical-align: middle;
+    color: #565659;
+  }
+
+  .filter-chips {
+    margin-top: 20px;
+  }
+}
+
+.order-select {
+  width: 70%;
+  margin-left: 10px;
+}

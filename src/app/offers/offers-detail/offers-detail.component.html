@@ -1,0 +1,106 @@
+<div style="margin-top: 100px;">
+  <mat-card class="card" *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+    <div class="info-container" fxLayout.gt-sm="row" fxLayout.lt-md="column" *ngIf="offer && offer.request">
+      <div fxFlex="59" class="carousel-wrapper">
+        <ngb-carousel #myCarousel="ngbCarousel" class="carousel">
+          <ng-template ngbSlide *ngFor="let image of images; let i = index;" [id]="i">
+            <img class="carousel-img" [src]="image">
+          </ng-template>
+        </ngb-carousel>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <a class="grid-item" (click)="showZoomedImage(i)" fxFlex="20" fxLayout="row" *ngFor="let image of images; let i = index;"
+            fxLayoutAlign="center center">
+            <img class="grid-img" [src]="image" />
+          </a>
+        </div>
+        <div class="request-info-container">
+          <p class="header">
+            {{ offer.request.submodel.mmodel.brand.name != "Otro" ? offer.request.submodel.mmodel.brand.name : offer.request.customBrand }}
+              {{ offer.request.submodel.mmodel.name != "Otro" ? offer.request.submodel.mmodel.name : offer.request.customModel }}
+              {{ offer.request.submodel.name != "Otro" ? offer.request.submodel.name : offer.request.customSubmodel}} {{ offer.request.year }}
+          </p>
+          <p class="category-title">
+            {{ offer.request.category.name }}
+          </p>
+          <p>{{ offer.request.descr }}</p>
+          <p *ngIf="offer.request.OEM">
+            <b>OEM: </b>{{ offer.request.OEM }}</p>
+          <p *ngIf="offer.request.VIN">
+            <b>VIN: </b>{{ offer.request.VIN }}</p>
+        </div>
+
+      </div>
+      <div fxFlex="2" fxLayoutAlign="center center">
+        <div class="vl"></div>
+      </div>
+      <div fxFlex="39" fxLayout="column" fxLayoutAlign="center start" class="offer-info-container">
+        <p class="header offer-header">
+          Tu cotización:
+        </p>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Marca</b>
+          </span>
+          <span fxFlex="50">{{offer.brand}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>País de origen</b>
+          </span>
+          <span fxFlex="50">{{offer.coo}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Disponible ahora</b>
+          </span>
+          <span fxFlex="50">{{getOfferAvailableString(offer.availableNow)}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Tiene devolución</b>
+          </span>
+          <span fxFlex="50">{{offer.devolution ? 'Si' : 'No'}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Precio</b>
+          </span>
+          <span fxFlex="50">$ {{offer.price}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Condición</b>
+          </span>
+          <span fxFlex="50">{{getOfferConditionString(offer.status)}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Tipo</b>
+          </span>
+          <span fxFlex="50">{{getOfferTypeString(offer.type)}}</span>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Métodos de pago</b>
+          </span>
+          <div fxLayout="row wrap">
+            <span fxFlex="50" *ngFor="let key of offer.paymentMethods" class="value">{{ key }}</span>
+          </div>
+        </div>
+        <div fxLayout="row" class="offer-title">
+          <span fxFlex="50">
+            <b>Ofrece envío a coordinar</b>
+          </span>
+          <span fxFlex="50">{{offer.delivery ? 'Sí': 'No'}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="offer-status-container">
+          <mat-chip-list>
+            <mat-chip [ngClass]="{ 'red': offer.status == OfferStatus.rejected, 'yellow': offer.status == OfferStatus.active }" class="chip">
+              <span class="offer-status-text">{{ getOfferStatusString(offer.status) }}</span>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

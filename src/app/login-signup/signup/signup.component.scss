@@ -1,0 +1,96 @@
+.header {
+  margin-top: 30px;
+  margin-left: 0px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-header-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.section-header {
+  width: 65%;
+  font-weight: 600;
+}
+
+.signup-button-container {
+  margin-top: 50px;
+}
+
+.signup-button {
+  background: #e53935;
+  color: #ffffff;
+}
+
+.already-have-account-container {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.already-have-account {
+  color: white;
+  font-size: 15px;
+}
+
+.profile-image-container {
+  display:inline-block;
+  position:relative;
+  padding: 2px;
+  background: white;
+}
+
+.profile-image {
+  width: 200px;
+}
+
+.select-profile-image-button {
+  width: 206px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+}
+.center {
+  text-align: center;
+}
+
+.button-container {
+  text-align: right;
+
+  .next-button {
+    margin: 0px 40px 10px 0;
+  }
+}
+
+.mat-form-field {
+  width: 70%;
+}
+
+.mat-tab-body-content {
+  overflow-x: hidden;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+@media all and (max-width: 960px) {
+
+  .button-container {  
+    .next-button {
+      margin: 0px 0px 10px 0;
+    }
+  }
+
+  mat-step-header {
+    display: none !important;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+}

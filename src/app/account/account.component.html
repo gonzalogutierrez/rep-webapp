@@ -1,0 +1,54 @@
+<p class="header" style="margin-bottom: 0px;">
+  Mi cuenta
+</p>
+
+<div class="center container" *ngIf="provider && summary">
+  <div class="row">
+    <div class="col-sm-5 offset-sm-1">
+      <div class="profile-pic-container">
+        <div style="display:inline-block; position:relative; padding: 2px; background: white;">
+            <img [src]="profileImage" style="width: 200px;"/>
+
+            <button mat-icon-button (click)="openSelectProfileImageDialog()" style="width: 204px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgb(0, 0, 0, 0.3);
+            border-radius: 0;
+            color: white;">
+              <mat-icon style="margin-right: 7px;">camera_alt</mat-icon> Actualizar imagen
+            </button>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div>
+        <p class="user-name">{{ provider.fantasyName }}</p>
+
+        <span class="item-title">Repuestos vendidos</span>
+        <span class="item-value">{{ summary.spareCount }}</span>
+
+        <span class="item-title">Total ventas por Rep</span>
+        <span class="item-value">${{ summary.totalSales }}</span>
+
+        <span class="item-title">Total Comisiones a pagar</span>
+        <span class="item-value">${{ summary.commissions }}</span>
+
+        <span style="display: block;" *ngIf="summary.expiration">Vencimiento</span>
+        <span class="item-value">{{ summary.expiration }}</span>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <a mat-raised-button id="edit-profile" routerLink="edit">EDITAR PERFIL</a>
+    <a mat-raised-button id="change-pwd" routerLink="change_password">CAMBIAR CONTRASEÑA</a>
+    <a mat-raised-button id="pay-comissions" (click)="showProviderBills()">PAGAR COMISIONES</a>
+    <a mat-raised-button id="logout" (click)="logout()">CERRAR SESIÓN</a>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="offer-summary-dialog-container" style="position: relative">
+  <button class="close-button-container" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h2 mat-dialog-title>Facturas</h2>
+  <mat-dialog-content fxLayout="column">
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="bills" matSort style="background: #D9D9D9;">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 1 </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="code">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.billerId}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="totalAmount">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Monto total </mat-header-cell>
+          <mat-cell *matCellDef="let element"> $ {{element.totalAmount}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="expirationDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Venc. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.expirationDate}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Comprobante </mat-header-cell>
+          <mat-cell *matCellDef="let element"><a style="background: transparent;" (click)="showReceipt(element.billerId)"><mat-icon>receipt</mat-icon></a></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button class="send-button" style="background: #43CC81; color: #ffffff; margin: 0 auto;">OK</button>
+  </mat-dialog-actions>
+</div>

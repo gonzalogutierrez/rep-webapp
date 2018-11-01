@@ -1,0 +1,211 @@
+<div class="requests-container" *tdLoading="'loadingRequests'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+  <div class="requests-filters-container" fxLayout.gt-sm="row" fxLayout.xs="column" fxLayoutAlign.gt-sm="center start" fxLayoutAlign.xs="center start">
+    <div class="filters-container" fxFlex="20" fxLayout="column">
+
+        <mat-chip-list class="filter-chips">
+            <div *ngFor="let filter of activeFilters; let i = index">
+              <mat-chip class="chip" *ngIf="filter.filterCode != 'category' && filter.filterCode != 'consumerType'" (click)="removeFilter(filter.filterCode, -1)">
+                <span>{{filter.filterValue}}</span>
+                <mat-icon class="remove-filter-button">clear</mat-icon>
+              </mat-chip>
+              <mat-chip class="chip" *ngFor="let value of filter.filterValue; let j = index;" (click)="removeFilter(filter.filterCode, j)">
+                <span *ngIf="filter.filterCode != 'consumerType'">{{ value}}</span>
+                <span *ngIf="filter.filterCode == 'consumerType'">{{ getConsumerTypeString(value) }}</span>
+                <mat-icon class="remove-filter-button">clear</mat-icon>
+              </mat-chip>
+            </div>
+          </mat-chip-list>
+      <!-- For small screens -->
+      <div fxFlex="20" fxLayout="row" fxHide.gt-sm="true" [fxHide]="showFilters" class="xs-sm-filters-closed">
+        <div fxFlex="50">
+          <mat-form-field class="order-select">
+            <mat-select placeholder="" (change)="onSortChange($event.value)" [(ngModel)]="sort">
+              <mat-option class="filter" value="1">
+                Más recientes
+              </mat-option>
+              <mat-option class="filter" value="2">
+                Más antiguas
+              </mat-option>
+              <mat-option class="filter" value="3">
+                Por nombre (A-Z)
+              </mat-option>
+              <mat-option class="filter" value="4">
+                Por nombre (Z-A)
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50">
+          <button class="filter-button" (click)="toggleShowFilters()">Filtrar
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div [fxHide]="!showFilters" fxHide.gt-sm="true" class="xs-sm-filters-opened">
+        <span class="filter-by-text">Filtrar por</span>
+        <button class="hide-filters-button" (click)="toggleShowFilters()">Ocultar
+          <mat-icon class="hide-filters-icon">close</mat-icon>
+        </button>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Categoría</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onCategorySelected(category)" *ngFor="let category of categories">{{ category.name }}</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Tipo de cliente</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onConsumerTypeSelected(consumerType)" *ngFor="let consumerType of getConsumerTypeValues()">{{ getConsumerTypeString(consumerType) }}</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Marca</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onBrandSelected(brand)" *ngFor="let brand of brands">{{ brand.name }}</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="selectedBrand">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Modelo</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onModelSelected(model)" *ngFor="let model of models">{{ model.name }}</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="selectedModel">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Versión</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="filter" (click)="onSubmodelSelected(submodel)" *ngFor="let submodel of submodels">{{ submodel.name }}</button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+      <!-- only for big screens -->
+      <div fxHide.xs="true">
+        <div class="md-lg-filter-container">
+          <span class="md-lg-filter-title">Ordenar solicitudes</span>
+          <mat-form-field class="order-select">
+            <mat-select placeholder="" (change)="onSortChange($event.value)" [(ngModel)]="sort">
+              <mat-option class="filter" value="1">
+                Más recientes
+              </mat-option>
+              <mat-option class="filter" value="2">
+                Más antiguas
+              </mat-option>
+              <mat-option class="filter" value="3">
+                Por marca (A-Z)
+              </mat-option>
+              <mat-option class="filter" value="4">
+                Por marca (Z-A)
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-chip-list class="filter-chips" *ngIf="findActiveFilter('category')">
+          <mat-chip class="chip" *ngFor="let value of findActiveFilter('category').filterValue; let j = index;" (click)="removeFilter('category', j)">
+            <span>{{ value}}</span>
+            <mat-icon class="remove-filter-button">clear</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <div class="md-lg-filter-container">
+          <span class="md-lg-filter-title">Categoría</span>
+          <button class="filter" (click)="onCategorySelected(category)" *ngFor="let category of categories">{{ category.name }}
+            <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+          </button>
+          <button class="show-more-filters" *ngIf="showMoreCategories" (click)="showMoreCategoriesDialog()">Ver todo</button>
+        </div>
+
+        <mat-chip-list class="filter-chips" *ngIf="findActiveFilter('consumerType')">
+          <mat-chip class="chip" *ngFor="let value of findActiveFilter('consumerType').filterValue; let j = index;" (click)="removeFilter('consumerType', j)">
+            <span>{{ getConsumerTypeString(value) }}</span>
+            <mat-icon class="remove-filter-button">clear</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <div class="md-lg-filter-container">
+          <span class="md-lg-filter-title">Tipo de cliente</span>
+          <button class="filter" (click)="onConsumerTypeSelected(consumerType)" *ngFor="let consumerType of getConsumerTypeValues()">{{ getConsumerTypeString(consumerType) }}
+            <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+          </button>
+        </div>
+
+        <mat-chip-list class="filter-chips" *ngIf="findActiveFilter('brand')">
+          <mat-chip class="chip" (click)="removeFilter('brand', -1)">
+            <span>{{ findActiveFilter('brand').filterValue }}</span>
+            <mat-icon class="remove-filter-button">clear</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <div class="md-lg-filter-container">
+          <span class="md-lg-filter-title">Marca</span>
+          <button class="filter" (click)="onBrandSelected(brand)" *ngFor="let brand of brands">{{ brand.name }}
+            <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+          </button>
+          <button class="show-more-filters" *ngIf="showMoreBrands" (click)="showMoreBrandsDialog()">Ver todo</button>
+        </div>
+
+        <mat-chip-list class="filter-chips" *ngIf="findActiveFilter('model')">
+          <mat-chip class="chip" (click)="removeFilter('model', -1)">
+            <span>{{ findActiveFilter('model').filterValue }}</span>
+            <mat-icon class="remove-filter-button">clear</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <div class="md-lg-filter-container" *ngIf="selectedBrand">
+          <span class="md-lg-filter-title">Modelo</span>
+          <button class="filter" (click)="onModelSelected(model)" *ngFor="let model of models">{{ model.name }}
+            <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+          </button>
+          <button class="show-more-filters" *ngIf="showMoreModels" (click)="showMoreModelsDialog()">Ver todo</button>
+        </div>
+
+        <mat-chip-list class="filter-chips" *ngIf="findActiveFilter('submodel')">
+          <mat-chip class="chip" (click)="removeFilter('submodel', -1)">
+            <span>{{ findActiveFilter('submodel').filterValue }}</span>
+            <mat-icon class="remove-filter-button">clear</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <div class="md-lg-filter-container" *ngIf="selectedModel">
+          <span class="md-lg-filter-title">Versión</span>
+          <button class="filter" (click)="onSubmodelSelected(submodel)" *ngFor="let submodel of submodels">{{ submodel.name }}
+            <!--<span style="color: #b1b1b4; color: #b1b1b4; font-weight: 400; font-size: 13px;">(100)</span>-->
+          </button>
+          <button class="show-more-filters" *ngIf="showMoreSubmodels" (click)="showMoreSubmodelsDialog()">Ver todo</button>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="80" *ngIf="requestsTotal > 0" class="requests-list-wrapper">
+      <div class="request-card-wrapper" *ngFor="let request of requests" (click)="showDetail(request._id)">
+        <mat-card class="request-background-card" (click)="showDetail(request._id)">
+          <div style="margin-bottom: -10px; float: right;">
+            <p fxLayoutAlign="end end" style="font-size: 12px; text-align: right; margin-bottom: 0px; color: #999;">{{ parseDate(request.createdAt) }}</p>
+          </div>
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlexFill fxLayoutAlign="center center">
+            <div fxFlex="25" class="center-content">
+              <img class="width-50" src="{{ request.submodel.mmodel.brand.pictureURL }}" />
+            </div>
+            <div fxFlex="30" class="card-info-wrapper">
+              <p class="card-title">{{ request.submodel.mmodel.brand.name != "Otro" ? request.submodel.mmodel.brand.name : request.customBrand
+                }} {{ request.submodel.mmodel.name != "Otro" ? request.submodel.mmodel.name : request.customModel }}</p>
+              <p class="card-subtitle">{{ request.submodel.name != "Otro" ? request.submodel.name : request.customSubmodel}} {{ request.year }}</p>
+              <p class="card-subtitle-2">{{ request.category.name }}</p>
+            </div>
+            <div fxFlex="25">
+              <p class="category-title" style="text-align: center;">{{ request.name }}</p>
+            </div>
+            <div fxFlex="20">
+              <mat-chip fxLayoutAlign="start end" class="chip consumer-type-chip">{{ getConsumerTypeString(request.consumer.consumerType) }}</mat-chip>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div fxFlex="80" *ngIf="requestsTotal == 0" class="requests-empty-state">
+      <p>No hay resultados</p>
+    </div>
+  </div>
+  <div>
+    <td-paging-bar #pagingBar *ngIf="requestsTotal > pageSize" fxLayout="row" fxLayoutAlign="center center" pageLinkCount="5"
+      [pageSize]="pageSize" [total]="requestsTotal" (change)="page($event)" color="white" class="pagination">
+    </td-paging-bar>
+  </div>
+</div>

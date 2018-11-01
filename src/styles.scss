@@ -1,0 +1,145 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+// (optional) Additional themes
+@import '~@covalent/markdown/markdown-theme';
+@import '~@covalent/highlight/highlight-theme';
+@import url('https://fonts.googleapis.com/css?family=Asap|Quattrocento+Sans');
+// bootstrap
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+// Define a custom typography config that overrides the font-family
+// or any typography level.
+$typography: mat-typography-config(
+  $font-family: 'Asap, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700)
+);
+
+@include mat-core($typography); // $typography is an **optional** argument for the mat-core
+
+$bv-primary: (
+    50 : #e6e6e6,
+    100 : #c1c1c1,
+    200 : #989898,
+    300 : #6e6e6e,
+    400 : #4f4f4f,
+    500 : #303030,
+    600 : #2b2b2b,
+    700 : #242424,
+    800 : #1e1e1e,
+    900 : #131313,
+    A100 : #ef6c6c,
+    A200 : #ea3e3e,
+    A400 : #f50000,
+    A700 : #db0000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$bv-accent: (
+    50 : #fce7e7,
+    100 : #f7c4c2,
+    200 : #f29c9a,
+    300 : #ed7472,
+    400 : #e95753,
+    500 : #e53935,
+    600 : #e23330,
+    700 : #de2c28,
+    800 : #da2422,
+    900 : #d31716,
+    A100 : #ffffff,
+    A200 : #ffd1d1,
+    A400 : #ff9f9e,
+    A700 : #ff8585,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// mandatory stuff for theming
+$primary: mat-palette($bv-primary);
+$accent:  mat-palette($bv-accent);
+
+// include the custom theme components into a theme object
+$theme: mat-light-theme($primary, $accent);
+
+// include the custom theme object into the angular material theme
+@include angular-material-theme($theme);
+
+
+@include covalent-theme($theme, $typography); // $typography is an **optional** argument for the covalent-theme
+
+// (optional) Additional themes
+@include covalent-markdown-theme($theme);
+@include covalent-highlight-theme();
+
+body {
+  margin: 0px;
+  color: black;
+  background: #E6E6E6;
+}
+
+.header {
+  margin-left: 40px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  font-size: 25px;
+}
+
+.sub-header {
+  font-size: 22px;
+}
+
+.carousel-item {
+  text-align: center !important;
+}
+
+button, a {
+  outline: 0 !important;
+}
+
+.loading-spinner {
+  margin: auto;
+}
+
+.mat-horizontal-content-container {
+  padding: 0 45px 24px 45px !important;
+}
+
+.close-button-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  background: inherit;
+}

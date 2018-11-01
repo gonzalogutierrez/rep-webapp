@@ -1,0 +1,153 @@
+@import '../../offers/offers-detail/offers-detail.component';
+
+
+.finish-button {
+  background: #1F63E9;
+  color: #ffffff;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: gray;
+}
+.filled {
+  color: #1F63E9;
+}
+
+ngb-rating {
+  outline: 0;
+}
+
+.red {
+  background: #e53935 !important;
+}
+
+.green {
+  background: #43CC81 !important;
+}
+
+.yellow {
+  background: #FFA330 !important;
+}
+
+.chip span {
+  color: white;
+}
+
+.carousel-wrapper {
+  margin-top: 50px;
+}
+
+.sale-detail-container {
+  margin-top: 100px;
+}
+
+.grid-item {
+  background: transparent;
+  width: 100px;
+  height: 100px;
+}
+
+.grid-img {
+  border: 1px solid;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+}
+
+.request-info-container {
+  margin-top: 15px;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.offer-info-container {
+  padding: 40px;
+  padding-top: 50px;
+}
+
+.offer-title {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.sale-status-container {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.sale-status-text {
+  text-align: center;
+}
+
+.finish-button-wrapper {
+  margin-top: 50px;
+}
+
+.vl {
+  height: 55%;
+  border-left: 2px solid lightgray;
+}
+
+.offer-header {
+  margin-bottom: 10px;
+}
+
+.card {
+  min-height: 130px;
+}
+
+.pic-container {
+  width: 100%;
+  margin-top: 35px;
+  padding-bottom: 30px;
+
+  img {
+    width: 100%;
+  }
+}
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .card {
+    margin: 20px;
+  }
+
+  .carousel-wrapper {
+    margin-top: 0px;
+  }
+
+  .info-container {
+    margin-right: 0px;
+  }
+
+  .grid-item {
+    width: 70px;
+    height: 70px;
+  }
+
+  .grid-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .offer-info-container {
+    padding: 15px;
+    padding-top: 50px;
+  }
+
+  .finish-button-wrapper {
+    margin-top: 20px;
+  }
+
+  .offer-title {
+    margin-top: 15px;
+  }
+
+  .vl {
+    margin-top: 30px;
+    margin-bottom: -15px;
+    width: 90%;
+    border-bottom: 2px solid lightgray;
+  }
+}

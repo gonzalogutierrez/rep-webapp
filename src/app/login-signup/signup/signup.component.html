@@ -1,0 +1,384 @@
+<!--<p class="header">
+  Registro
+</p>-->
+<!--<div *tdLoading="'saveChangesLoading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">-->
+
+
+<!-- TODO : ver como usar el mismo html para horizontal y vertical-->
+<div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-vertical-stepper fxHide.gt-md [linear]="true" #stepper="matVerticalStepper">
+      <!-- USER -->
+      <mat-step [stepControl]="userForm">
+        <div style="text-align: center;">
+          <div style="display:inline-block; position:relative; padding: 2px; background: white;">
+            <img [src]="profileImage" style="width: 150px;" />
+            <button mat-icon-button (click)="openSelectProfileImageDialog()" style="width: 152px;
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              background: rgb(0, 0, 0, 0.3);
+              border-radius: 0;
+              font-size: 11px;
+              color: white;">
+              <mat-icon style="margin-right: 7px;">camera_alt</mat-icon> Seleccionar imagen
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="userForm" name="userForm" fxFlex="100">
+          <ng-template matStepLabel>Tus datos</ng-template>
+          <!-- <div fxLayout="row" fxLayoutAlign="start center" class="section-header-container">
+        <span class="section-header">Datos de usuario</span>
+      </div> -->
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field fxFlex.gt-md="60">
+              <input matInput placeholder="Email" [formControl]="userForm.controls.email" required>
+              <mat-error *ngIf="userForm.controls.email.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field fxFlex.gt-md="60">
+              <input matInput placeholder="Contraseña" [formControl]="userForm.controls.password" [type]="hidePwd ? 'password' : 'text'"
+                required>
+              <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{ hidePwd ? 'visibility' : 'visibility_off' }}</mat-icon>
+              <mat-error *ngIf="userForm.controls.password.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+
+        <div class="button-container">
+          <button mat-fab (click)="goTo2ndStep()" class="next-button">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+
+      </mat-step>
+
+
+
+      <!-- BUSINESS -->
+      <mat-step [stepControl]="businessForm">
+        <ng-template matStepLabel>Datos empresa</ng-template>
+        <!-- <div class="section-header-container" fxLayout="row" fxLayoutAlign="start center">
+      <span class="section-header">Datos de la empresa</span>
+    </div> -->
+        <ng-container *ngIf="verticalStepper.selectedIndex == 1">
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Nombre fantasía" [formControl]="businessForm.controls.fantasyName" required>
+              <mat-error *ngIf="businessForm.controls.fantasyName.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <div fxFlex="8" fxFlex.lt-md="0"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Razón social" [formControl]="businessForm.controls.businessName" required>
+              <mat-error *ngIf="businessForm.controls.businessName.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="RUT" [formControl]="businessForm.controls.rut" required>
+              <mat-error *ngIf="businessForm.controls.rut.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <mat-select [formControl]="businessForm.controls.corporationType" placeholder="Tipo de sociedad" required>
+                <mat-option value="sa">S.A.</mat-option>
+                <mat-option value="srl">S.R.L.</mat-option>
+                <mat-option value="unipersonal">Unipersonal</mat-option>
+                <mat-option value="otros">Otros</mat-option>
+              </mat-select>
+              <mat-error *ngIf="businessForm.controls.corporationType.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Página web" [formControl]="businessForm.controls.webpage">
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Horarios" [formControl]="businessForm.controls.schedules">
+            </mat-form-field>
+
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Encargado o responsable" [formControl]="billingForm.controls.attendant" required>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Teléfono del encargado o responsable" [formControl]="billingForm.controls.attendantPhone" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Email del encargado o responsable" [formControl]="billingForm.controls.attendantEmail" required>
+            </mat-form-field>
+          </div>
+
+          <div class="button-container">
+            <button mat-fab matStepperNext class="next-button">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </mat-step>
+
+
+      <!-- BILLING -->
+      <mat-step [stepControl]="businessForm">
+        <ng-template matStepLabel>Datos facturación</ng-template>
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" class="section-header-container">
+      <span class="section-header">Datos de facturación</span>
+    </div> -->
+        <ng-container *ngIf="verticalStepper.selectedIndex == 2">
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Domicilio" [formControl]="billingForm.controls.address" required>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex="46">
+              <mat-select [formControl]="billingForm.controls.locality" placeholder="Zona" required>
+                <mat-option *ngFor="let key of zones[billingForm.controls.department.value]" [value]="key">{{ key }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Código Postal" [formControl]="billingForm.controls.postalCode" required>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex="46">
+              <mat-select [formControl]="billingForm.controls.department" placeholder="Departamento" required>
+                <mat-option value="AR">Artigas</mat-option>
+                <mat-option value="CA">Canelones</mat-option>
+                <mat-option value="CL">Cerro Largo</mat-option>
+                <mat-option value="CO">Colonia</mat-option>
+                <mat-option value="DU">Durazno</mat-option>
+                <mat-option value="FS">Flores</mat-option>
+                <mat-option value="FD">Florida</mat-option>
+                <mat-option value="LA">Lavalleja</mat-option>
+                <mat-option value="MA">Maldonado</mat-option>
+                <mat-option value="MO">Montevideo</mat-option>
+                <mat-option value="PA">Paysandú</mat-option>
+                <mat-option value="RN">Río Negro</mat-option>
+                <mat-option value="RV">Rivera</mat-option>
+                <mat-option value="RO">Rocha</mat-option>
+                <mat-option value="SA">Salto</mat-option>
+                <mat-option value="SJ">San José</mat-option>
+                <mat-option value="SO">Soriano</mat-option>
+                <mat-option value="TA">Tacuarembó</mat-option>
+                <mat-option value="TT">Treinta y Tres</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Teléfono" [formControl]="billingForm.controls.phone" required>
+            </mat-form-field>
+          </div>
+          <div class="button-container">
+            <button mat-fab (click)="signup()" class="next-button">
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+
+      </mat-step>
+      <div fxLayout="row" fxLayoutAlign="center center" class="signup-button-container">
+        <a mat-raised-button class="signup-button" fxFlex="40" (click)="signup()">CREAR CUENTA</a>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" class="already-have-account-container">
+        <a class="already-have-account" fxFlex="100" [routerLink]="['/login']">Ya tengo cuenta</a>
+      </div>
+    </mat-vertical-stepper>
+
+    <mat-horizontal-stepper fxHide.lt-lg [linear]="true" #stepper="matHorizontalStepper">
+      <!-- USER -->
+      <mat-step [stepControl]="userForm">
+        <div style="text-align: center;">
+          <div style="display:inline-block; position:relative; padding: 2px; background: white;">
+            <img [src]="profileImage" style="width: 150px;" />
+            <button mat-icon-button (click)="openSelectProfileImageDialog()" style="width: 152px;
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              background: rgb(0, 0, 0, 0.3);
+              border-radius: 0;
+              font-size: 11px;
+              color: white;">
+              <mat-icon style="margin-right: 7px;">camera_alt</mat-icon> Seleccionar imagen
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="userForm" name="userForm" fxFlex="100">
+          <ng-template matStepLabel>Tus datos</ng-template>
+          <!-- <div fxLayout="row" fxLayoutAlign="start center" class="section-header-container">
+        <span class="section-header">Datos de usuario</span>
+      </div> -->
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field fxFlex.gt-md="60">
+              <input matInput placeholder="Email" [formControl]="userForm.controls.email" required>
+              <mat-error *ngIf="userForm.controls.email.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field fxFlex.gt-md="60">
+              <input matInput placeholder="Contraseña" [formControl]="userForm.controls.password" [type]="hidePwd ? 'password' : 'text'"
+                required>
+              <mat-icon matSuffix (click)="hidePwd = !hidePwd">{{ hidePwd ? 'visibility' : 'visibility_off' }}</mat-icon>
+              <mat-error *ngIf="userForm.controls.password.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+
+        <div class="button-container">
+          <button mat-fab (click)="goTo2ndStep()" class="next-button">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+
+      </mat-step>
+
+
+
+      <!-- BUSINESS -->
+      <mat-step [stepControl]="businessForm">
+        <ng-template matStepLabel>Datos empresa</ng-template>
+        <!-- <div class="section-header-container" fxLayout="row" fxLayoutAlign="start center">
+      <span class="section-header">Datos de la empresa</span>
+    </div> -->
+        <ng-container *ngIf="horizontalStepper.selectedIndex == 1">
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Nombre fantasía" [formControl]="businessForm.controls.fantasyName" required>
+              <mat-error *ngIf="businessForm.controls.fantasyName.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <div fxFlex="8" fxFlex.lt-md="0"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Razón social" [formControl]="businessForm.controls.businessName" required>
+              <mat-error *ngIf="businessForm.controls.businessName.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="RUT" [formControl]="businessForm.controls.rut" required>
+              <mat-error *ngIf="businessForm.controls.rut.invalid">{{ getErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <mat-select [formControl]="businessForm.controls.corporationType" placeholder="Tipo de sociedad" required>
+                <mat-option value="S.A.">S.A.</mat-option>
+                <mat-option value="S.R.L.">S.R.L.</mat-option>
+                <mat-option value="Unipersonal">Unipersonal</mat-option>
+                <mat-option value="Otros">Otros</mat-option>
+              </mat-select>
+              <mat-error *ngIf="businessForm.controls.corporationType.invalid">{{ getErrorMessage() }}</mat-error>
+
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Página web" [formControl]="businessForm.controls.webpage">
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Horarios" [formControl]="businessForm.controls.schedules">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Encargado o responsable" [formControl]="billingForm.controls.attendant" required>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Teléfono del encargado o responsable" [formControl]="billingForm.controls.attendantPhone" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex.gt-md="46">
+              <input matInput placeholder="Email del encargado o responsable" [formControl]="billingForm.controls.attendantEmail" required>
+            </mat-form-field>
+          </div>
+
+          <div class="button-container">
+            <button mat-fab matStepperNext class="next-button">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </mat-step>
+
+
+      <!-- BILLING -->
+      <mat-step [stepControl]="businessForm">
+        <ng-template matStepLabel>Datos facturación</ng-template>
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" class="section-header-container">
+      <span class="section-header">Datos de facturación</span>
+    </div> -->
+        <ng-container *ngIf="horizontalStepper.selectedIndex == 2">
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Domicilio" [formControl]="billingForm.controls.address" required>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex="46">
+              <mat-select [formControl]="billingForm.controls.department" placeholder="Departamento" required>
+                <mat-option value="Artigas">Artigas</mat-option>
+                <mat-option value="Canelones">Canelones</mat-option>
+                <mat-option value="Cerro Largo">Cerro Largo</mat-option>
+                <mat-option value="Colonia">Colonia</mat-option>
+                <mat-option value="Durazno">Durazno</mat-option>
+                <mat-option value="Flores">Flores</mat-option>
+                <mat-option value="Florida">Florida</mat-option>
+                <mat-option value="Lavalleja">Lavalleja</mat-option>
+                <mat-option value="Maldonado">Maldonado</mat-option>
+                <mat-option value="Montevideo">Montevideo</mat-option>
+                <mat-option value="Paysandú">Paysandú</mat-option>
+                <mat-option value="Río Negro">Río Negro</mat-option>
+                <mat-option value="Rivera">Rivera</mat-option>
+                <mat-option value="Rocha">Rocha</mat-option>
+                <mat-option value="Salto">Salto</mat-option>
+                <mat-option value="San José">San José</mat-option>
+                <mat-option value="Soriano">Soriano</mat-option>
+                <mat-option value="Tacuarembó">Tacuarembó</mat-option>
+                <mat-option value="Treinta y Tres">Treinta y Tres</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <mat-select [formControl]="billingForm.controls.locality" placeholder="Zona" required>
+                <mat-option *ngFor="let key of (zones[billingForm.controls.department.value] ? zones[billingForm.controls.department.value] : [])" [value]="key">{{ key }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div fxFlex="8"></div>
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Código Postal" [formControl]="billingForm.controls.postalCode" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="46">
+              <input matInput placeholder="Teléfono" [formControl]="billingForm.controls.phone" required>
+            </mat-form-field>
+          </div>
+          <div class="button-container">
+            <button mat-fab (click)="signup()" class="next-button">
+              <mat-icon>check</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+
+      </mat-step>
+      <div fxLayout="row" fxLayoutAlign="center center" class="signup-button-container">
+        <a mat-raised-button class="signup-button" fxFlex="40" (click)="signup()">CREAR CUENTA</a>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" class="already-have-account-container">
+        <a class="already-have-account" fxFlex="100" [routerLink]="['/login']">Ya tengo cuenta</a>
+      </div>
+    </mat-horizontal-stepper>
+  </div>
+</div>
