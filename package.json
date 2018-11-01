@@ -41,7 +41,7 @@
     "pdfjs-dist": "^2.0.489",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19",
-	"typescript": "^2.0.2""
+	"typescript": "^2.0.2"
   },
   "devDependencies": {
     "@angular/language-service": "^5.2.0",
