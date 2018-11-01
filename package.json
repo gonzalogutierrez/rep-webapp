@@ -12,6 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+	"preinstall": "npm install -g angular-cli@1.7.3",
 	"heroku-prebuild": "yarn install --network-timeout 1000000"
   },
   "private": true,
